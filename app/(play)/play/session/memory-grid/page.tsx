@@ -1,16 +1,46 @@
 'use client'
 
+import { useState, useCallback } from 'react'
 import { useMemoryGrid } from '@/lib/games/memoryGrid/useMemoryGrid'
 import GameHeader from '@/components/play/memoryGrid/GameHeader'
 import Grid from '@/components/play/memoryGrid/Grid'
 import DifficultySelector from '@/components/play/memoryGrid/DifficultySelector'
+import GameResults from '@/components/play/memoryGrid/GameResults'
 import MascotBubble from '@/components/play/MascotBubble'
+import type { Difficulty } from '@/lib/games/memoryGrid/types'
 
 export default function MemoryGridPage() {
-  const { state, revealTimeLeft, startGame, tapTile } = useMemoryGrid()
+  const { state, revealTimeLeft, elapsedTime, startGame, tapTile } = useMemoryGrid()
+  const [finalTime, setFinalTime] = useState(0)
+
+  const handleStart = useCallback(
+    (difficulty: Difficulty) => {
+      setFinalTime(0)
+      startGame(difficulty)
+    },
+    [startGame]
+  )
+
+  // Capture elapsed time at victory
+  if (state.phase === 'victory' && finalTime === 0) {
+    setFinalTime(elapsedTime)
+  }
 
   if (state.phase === 'idle') {
-    return <DifficultySelector onSelect={startGame} />
+    return <DifficultySelector onSelect={handleStart} />
+  }
+
+  if (state.phase === 'victory') {
+    return (
+      <GameResults
+        attempts={state.attempts}
+        elapsedMs={finalTime}
+        difficulty={state.difficulty}
+        rows={state.rows}
+        cols={state.cols}
+        onPlayAgain={() => handleStart(state.difficulty)}
+      />
+    )
   }
 
   const phaseMessage =
