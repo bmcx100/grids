@@ -14,7 +14,7 @@ const tiers = [
       'Grade-level questions',
       'Unlimited play',
     ],
-    cta: 'Get started free',
+    cta: 'Try a game',
     highlighted: false,
   },
   {

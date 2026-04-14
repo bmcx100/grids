@@ -35,10 +35,10 @@ export function Navbar() {
 
         {/* Right: CTA (desktop) */}
         <a
-          href="#start"
+          href="/play/session/memory-grid"
           className="hidden md:block bg-brand-terracotta text-white font-heading font-bold text-xs px-5 py-2 rounded-button hover:bg-brand-terracotta-light transition-colors"
         >
-          Get started free
+          Try a game
         </a>
 
         {/* Mobile hamburger */}
@@ -90,11 +90,11 @@ export function Navbar() {
             {/* CTA */}
             <div className="px-6 pt-8">
               <a
-                href="#start"
+                href="/play/session/memory-grid"
                 onClick={() => setMobileOpen(false)}
                 className="block w-full text-center bg-brand-terracotta text-white font-heading font-bold text-sm px-5 py-3 rounded-button hover:bg-brand-terracotta-light transition-colors"
               >
-                Get started free
+                Try a game
               </a>
             </div>
           </motion.div>
