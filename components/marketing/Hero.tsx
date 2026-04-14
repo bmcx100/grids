@@ -1,8 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { getVariant, type Variant } from '@/lib/ab'
 
 const stagger = (index: number) => ({
   initial: { opacity: 0, y: 24 },
@@ -14,63 +12,27 @@ const stagger = (index: number) => ({
   },
 })
 
-const copy: Record<Variant, { headline: string[]; subtext: string[] }> = {
-  B: {
-    headline: ['Buy back their focus.', 'Stop selling their attention.'],
-    subtext: [
-      'Fun games for them.',
-      'Transparent, guided learning for you both.',
-    ],
-  },
-  D: {
-    headline: ['Screen time you can be proud of.'],
-    subtext: [
-      "Their device doesn't have to be a vice. Buy back their focus with games they love and learning you can see.",
-    ],
-  },
-}
-
 export function Hero() {
-  const [variant, setVariant] = useState<Variant | null>(null)
-
-  useEffect(() => {
-    setVariant(getVariant())
-
-    function handleChange(e: Event) {
-      const v = (e as CustomEvent<Variant>).detail
-      setVariant(v)
-    }
-
-    window.addEventListener('ab-variant-change', handleChange)
-    return () => window.removeEventListener('ab-variant-change', handleChange)
-  }, [])
-
-  // Show nothing until variant is loaded (avoid flash)
-  if (!variant) return null
-
-  const { headline, subtext } = copy[variant]
-
   return (
     <section className="py-20 lg:py-28">
       <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-12">
         {/* Left column */}
         <div className="lg:w-[60%]">
-          <motion.h1 {...stagger(0)} key={`headline-${variant}`}>
-            {headline.map((line, i) => (
-              <span key={i} className="font-heading font-extrabold text-[32px] lg:text-[42px] leading-[1.08] tracking-[-0.02em] text-brand-ink block">
-                {line}
-              </span>
-            ))}
+          <motion.h1 {...stagger(0)}>
+            <span className="font-heading font-extrabold text-[32px] lg:text-[42px] leading-[1.08] tracking-[-0.02em] text-brand-ink block">
+              Screen time a parent
+            </span>
+            <span className="font-heading font-extrabold text-[32px] lg:text-[42px] leading-[1.08] tracking-[-0.02em] text-brand-ink block">
+              can be proud of.
+            </span>
           </motion.h1>
 
           <motion.div
             {...stagger(1)}
-            key={`subtext-${variant}`}
             className="font-body text-brand-pencil text-base leading-relaxed max-w-[420px] mt-4"
           >
-            {subtext.map((line, i) => (
-              <p key={i}>{line}</p>
-            ))}
+            <p>Fun games for your kids.</p>
+            <p>Transparent, guided learning for you&nbsp;both.</p>
           </motion.div>
 
           <motion.div {...stagger(2)}>
@@ -85,13 +47,12 @@ export function Hero() {
 
         {/* Right column */}
         <div className="lg:w-[40%]">
-          <motion.div
-            {...stagger(3)}
-            className="bg-brand-parchment-warm rounded-2xl flex items-center justify-center aspect-[4/3] w-full border border-brand-cream-dark"
-          >
-            <span className="font-body text-brand-pencil text-sm text-center px-6">
-              Mom on laptop, son on phone, son leaning up against mother, both engaged and happy, L-sectional couch
-            </span>
+          <motion.div {...stagger(3)}>
+            <img
+              src="/images/homepage-design/hero-mother-son.png"
+              alt="Mother and son on couch, both engaged and happy with their devices"
+              className="rounded-2xl w-full border border-brand-cream-dark"
+            />
           </motion.div>
         </div>
       </div>
