@@ -75,6 +75,8 @@ export default function Grid({ state, onTapTile }: GridProps) {
     <div
       ref={gridRef}
       className="grid"
+      role="grid"
+      aria-label={`Memory grid, ${rows} rows by ${cols} columns`}
       style={{
         gridTemplateColumns: `repeat(${cols}, 1fr)`,
         gap: `${gap}px`,

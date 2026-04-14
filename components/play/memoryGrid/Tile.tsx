@@ -36,7 +36,7 @@ export default function Tile({ state, interactive, onClick }: TileProps) {
   return (
     <motion.button
       className={cn(
-        'aspect-square rounded-[6px] border-2 transition-colors duration-200',
+        'aspect-square rounded-[6px] border-2 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-brand-indigo focus-visible:ring-offset-2',
         stateStyles[state],
         interactive ? 'cursor-pointer' : 'cursor-default pointer-events-none'
       )}

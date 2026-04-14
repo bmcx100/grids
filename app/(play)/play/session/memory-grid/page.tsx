@@ -67,7 +67,11 @@ export default function MemoryGridPage() {
       </div>
 
       <div className="px-5 pb-6">
-        <div className="text-center font-mono font-semibold text-xs text-brand-pencil">
+        <div
+          className="text-center font-mono font-semibold text-xs text-brand-pencil"
+          aria-live="polite"
+          role="status"
+        >
           {state.phase === 'reveal' && 'Watch carefully...'}
           {state.phase === 'walk' && `Row ${state.currentRow + 1} of ${state.rows}`}
           {state.phase === 'failure' && 'Starting new attempt...'}
