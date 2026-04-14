@@ -5,17 +5,28 @@ export function getTileState(
   row: number,
   state: GameState
 ): TileVisualState {
-  const isOnPath = state.path[row] === col
-  const isWrong =
-    state.wrongTile !== null &&
-    state.wrongTile.row === row &&
-    state.wrongTile.col === col
+  const { path, wrongTile, freshSteps, permanentSteps, phase, currentStep } = state
 
-  if (isWrong) return 'wrong'
-  if (state.freshRows.has(row) && isOnPath) return 'correct-fresh'
-  if (state.permanentRows.has(row) && isOnPath) return 'correct-permanent'
-  if (state.phase === 'reveal' && isOnPath) return 'revealed'
-  if (state.phase === 'walk' && row === state.currentRow) return 'active'
+  if (wrongTile !== null && wrongTile.row === row && wrongTile.col === col) return 'wrong'
+
+  // Find if this tile is on the path (and which step index)
+  const stepIndex = path.findIndex((p) => p.row === row && p.col === col)
+
+  if (stepIndex >= 0) {
+    if (freshSteps.has(stepIndex)) return 'correct-fresh'
+    if (permanentSteps.has(stepIndex)) return 'correct-permanent'
+    if (phase === 'reveal') return 'revealed'
+  }
+
+  // Active = adjacent to current position during walk
+  if (phase === 'walk') {
+    const cur = path[currentStep]
+    if (cur) {
+      const dr = Math.abs(cur.row - row)
+      const dc = Math.abs(cur.col - col)
+      if ((dr === 1 && dc === 0) || (dr === 0 && dc === 1)) return 'active'
+    }
+  }
 
   return 'default'
 }

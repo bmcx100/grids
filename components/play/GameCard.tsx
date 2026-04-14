@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
 interface GameCardProps {
@@ -7,10 +8,11 @@ interface GameCardProps {
   questions: number
   minutes: number
   locked: boolean
+  href: string
 }
 
-export default function GameCard({ name, desc, icon, questions, minutes, locked }: GameCardProps) {
-  return (
+export default function GameCard({ name, desc, icon, questions, minutes, locked, href }: GameCardProps) {
+  const content = (
     <div
       className={cn(
         'group bg-brand-cream border-2 border-brand-cream-dark rounded-chunky p-3.5 flex items-center gap-3.5 cursor-pointer hover:border-brand-indigo transition-colors',
@@ -25,7 +27,7 @@ export default function GameCard({ name, desc, icon, questions, minutes, locked 
         <div className="font-bold text-[15px] text-brand-ink">{name}</div>
         <div className="text-xs text-brand-pencil font-semibold mt-0.5">{desc}</div>
         <div className="font-mono font-semibold text-[11px] text-brand-pencil mt-1">
-          {questions} questions &middot; ~{minutes} min
+          {questions > 0 ? `${questions} questions · ` : ''}~{minutes} min
         </div>
       </div>
 
@@ -34,4 +36,8 @@ export default function GameCard({ name, desc, icon, questions, minutes, locked 
       </span>
     </div>
   )
+
+  if (locked) return content
+
+  return <Link href={href}>{content}</Link>
 }

@@ -16,7 +16,7 @@ const stateStyles: Record<TileVisualState, string> = {
   revealed:
     'bg-brand-indigo/30 border-brand-indigo-light',
   active:
-    'bg-brand-cream border-brand-indigo-light animate-pulse-ring',
+    'bg-brand-indigo/15 border-brand-indigo ring-2 ring-brand-indigo/30 animate-pulse-ring',
   'correct-fresh':
     'bg-brand-success border-brand-success-dark',
   'correct-permanent':

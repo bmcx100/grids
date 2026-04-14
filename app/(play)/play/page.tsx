@@ -59,6 +59,7 @@ export default function PlayPage() {
               questions={game.questions}
               minutes={game.minutes}
               locked={game.locked}
+              href={game.href}
             />
           </motion.div>
         ))}

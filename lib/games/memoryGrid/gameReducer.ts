@@ -14,48 +14,55 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         phase: 'reveal',
         attempts: 1,
         startTime: Date.now(),
-        permanentRows: new Set(),
-        freshRows: new Set(),
+        permanentSteps: new Set(),
+        freshSteps: new Set(),
       }
     }
 
     case 'END_REVEAL':
-      return { ...state, phase: 'walk', currentRow: 0 }
+      return {
+        ...state,
+        phase: 'walk',
+        currentStep: 0,
+        freshSteps: new Set([0]),
+      }
 
     case 'TAP_TILE': {
       if (state.phase !== 'walk') return state
 
-      const correctCol = state.path[state.currentRow]
+      const nextStep = state.currentStep + 1
+      if (nextStep >= state.path.length) return state
 
-      if (action.col === correctCol) {
-        const newFresh = new Set(state.freshRows)
-        newFresh.add(state.currentRow)
-        const nextRow = state.currentRow + 1
+      const target = state.path[nextStep]
 
-        if (nextRow >= state.rows) {
-          return { ...state, freshRows: newFresh, currentRow: nextRow, phase: 'victory' }
+      if (action.row === target.row && action.col === target.col) {
+        const newFresh = new Set(state.freshSteps)
+        newFresh.add(nextStep)
+
+        if (nextStep >= state.path.length - 1) {
+          return { ...state, freshSteps: newFresh, currentStep: nextStep, phase: 'victory' }
         }
 
-        return { ...state, freshRows: newFresh, currentRow: nextRow }
+        return { ...state, freshSteps: newFresh, currentStep: nextStep }
       }
 
       return {
         ...state,
-        wrongTile: { row: state.currentRow, col: action.col },
+        wrongTile: { row: action.row, col: action.col },
         phase: 'failure',
       }
     }
 
     case 'NEW_ATTEMPT': {
-      const newPermanent = new Set(state.permanentRows)
-      state.freshRows.forEach((row) => newPermanent.add(row))
+      const newPermanent = new Set(state.permanentSteps)
+      state.freshSteps.forEach((step) => newPermanent.add(step))
 
       return {
         ...state,
         phase: 'reveal',
-        currentRow: 0,
-        permanentRows: newPermanent,
-        freshRows: new Set(),
+        currentStep: 0,
+        permanentSteps: newPermanent,
+        freshSteps: new Set(),
         wrongTile: null,
         attempts: state.attempts + 1,
       }

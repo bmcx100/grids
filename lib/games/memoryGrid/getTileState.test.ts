@@ -1,17 +1,25 @@
 import { describe, it, expect } from 'vitest'
 import { getTileState } from './getTileState'
-import type { GameState } from './types'
+import type { GameState, Position } from './types'
+
+// Path: (0,3) → (0,4) → (1,4) → (1,5)
+const testPath: Position[] = [
+  { row: 0, col: 3 },
+  { row: 0, col: 4 },
+  { row: 1, col: 4 },
+  { row: 1, col: 5 },
+]
 
 function makeState(overrides?: Partial<GameState>): GameState {
   return {
     difficulty: 'easy',
     cols: 8,
     rows: 4,
-    path: [3, 4, 4, 5],
+    path: testPath,
     phase: 'walk',
-    currentRow: 0,
-    permanentRows: new Set(),
-    freshRows: new Set(),
+    currentStep: 0,
+    permanentSteps: new Set(),
+    freshSteps: new Set([0]),
     wrongTile: null,
     attempts: 1,
     startTime: 1000,
@@ -20,14 +28,16 @@ function makeState(overrides?: Partial<GameState>): GameState {
 }
 
 describe('getTileState', () => {
-  it('returns "default" for non-path, non-active tiles', () => {
-    const state = makeState({ phase: 'walk', currentRow: 0 })
-    expect(getTileState(0, 2, state)).toBe('default')
+  it('returns "default" for non-path, non-adjacent tiles', () => {
+    const state = makeState({ phase: 'walk', currentStep: 0 })
+    // (6,6) is far from current position (0,3) and not on path
+    expect(getTileState(6, 6, state)).toBe('default')
   })
 
   it('returns "revealed" for path tiles during reveal phase', () => {
-    const state = makeState({ phase: 'reveal' })
+    const state = makeState({ phase: 'reveal', freshSteps: new Set() })
     expect(getTileState(3, 0, state)).toBe('revealed')
+    expect(getTileState(4, 0, state)).toBe('revealed')
     expect(getTileState(4, 1, state)).toBe('revealed')
   })
 
@@ -36,19 +46,30 @@ describe('getTileState', () => {
     expect(getTileState(0, 0, state)).toBe('default')
   })
 
-  it('returns "active" for tiles in the current active row during walk', () => {
-    const state = makeState({ phase: 'walk', currentRow: 1 })
-    expect(getTileState(0, 1, state)).toBe('active')
-    expect(getTileState(7, 1, state)).toBe('active')
+  it('returns "active" for tiles adjacent to current position during walk', () => {
+    // Current position is path[0] = (row:0, col:3)
+    const state = makeState({ phase: 'walk', currentStep: 0 })
+    // Adjacent: up (1,3), left (0,2), right (0,4)
+    // (0,0 is bottom row, no down neighbor)
+    expect(getTileState(2, 0, state)).toBe('active') // left
+    expect(getTileState(4, 0, state)).toBe('active') // right (also on path but not fresh/permanent)
+    expect(getTileState(3, 1, state)).toBe('active') // up
+  })
+
+  it('does not mark non-adjacent tiles as active', () => {
+    const state = makeState({ phase: 'walk', currentStep: 0 })
+    // (0,5) is 2 cols away from current (0,3) — not adjacent
+    expect(getTileState(5, 0, state)).toBe('default')
   })
 
   it('returns "correct-fresh" for freshly confirmed path tiles', () => {
-    const state = makeState({ freshRows: new Set([0]) })
+    const state = makeState({ freshSteps: new Set([0]) })
+    // path[0] = (row:0, col:3)
     expect(getTileState(3, 0, state)).toBe('correct-fresh')
   })
 
   it('returns "correct-permanent" for permanently revealed path tiles', () => {
-    const state = makeState({ permanentRows: new Set([0]) })
+    const state = makeState({ permanentSteps: new Set([0]), freshSteps: new Set() })
     expect(getTileState(3, 0, state)).toBe('correct-permanent')
   })
 
@@ -62,8 +83,8 @@ describe('getTileState', () => {
 
   it('fresh takes priority over permanent', () => {
     const state = makeState({
-      permanentRows: new Set([0]),
-      freshRows: new Set([0]),
+      permanentSteps: new Set([0]),
+      freshSteps: new Set([0]),
     })
     expect(getTileState(3, 0, state)).toBe('correct-fresh')
   })
@@ -71,26 +92,30 @@ describe('getTileState', () => {
   it('permanent path tiles show during reveal (not re-revealed)', () => {
     const state = makeState({
       phase: 'reveal',
-      permanentRows: new Set([0]),
+      permanentSteps: new Set([0]),
+      freshSteps: new Set(),
     })
     expect(getTileState(3, 0, state)).toBe('correct-permanent')
   })
 
-  it('active row does not override permanent tiles on path', () => {
+  it('correct-fresh overrides active for path tiles at current step', () => {
     const state = makeState({
       phase: 'walk',
-      currentRow: 0,
-      permanentRows: new Set([0]),
+      currentStep: 0,
+      freshSteps: new Set([0]),
     })
-    expect(getTileState(3, 0, state)).toBe('correct-permanent')
+    // path[0] = (row:0, col:3) is both the current step (would be adjacent to itself) and fresh
+    expect(getTileState(3, 0, state)).toBe('correct-fresh')
   })
 
-  it('active row applies to non-path, non-permanent tiles', () => {
+  it('correct-permanent overrides active for adjacent path tiles', () => {
     const state = makeState({
       phase: 'walk',
-      currentRow: 0,
-      permanentRows: new Set([0]),
+      currentStep: 0,
+      permanentSteps: new Set([1]),
+      freshSteps: new Set([0]),
     })
-    expect(getTileState(0, 0, state)).toBe('active')
+    // path[1] = (row:0, col:4) is adjacent to current pos (row:0, col:3) AND permanent
+    expect(getTileState(4, 0, state)).toBe('correct-permanent')
   })
 })
