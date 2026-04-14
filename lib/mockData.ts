@@ -23,10 +23,9 @@ export const mockLeitnerBoxes = [
 
 export const mockGames = [
   { id: 'memory-grid', name: 'Memory Grid', desc: 'Memorize the path, walk it from memory', icon: '🧠', color: 'brand-indigo', questions: 0, minutes: 5, locked: false, href: '/play/session/memory-grid' },
-  { id: '1', name: 'Number Patterns', desc: 'Find the missing number in each sequence', icon: '🔢', color: 'brand-indigo', questions: 10, minutes: 5, locked: true, href: '/play/session' },
-  { id: '2', name: 'Addition Quest', desc: 'Add numbers up to 20', icon: '➕', color: 'brand-terracotta', questions: 10, minutes: 5, locked: true, href: '/play/session' },
-  { id: '3', name: 'Shape Explorer', desc: 'Identify and compare shapes', icon: '🔷', color: 'brand-success', questions: 10, minutes: 5, locked: true, href: '/play/session' },
-  { id: '4', name: 'Word Explorer', desc: 'Build vocabulary through word puzzles', icon: '🔒', color: 'brand-cream-dark', questions: 10, minutes: 5, locked: true, href: '#' },
+  { id: 'flappy-bird', name: 'Flappy Bird', desc: 'Tap to fly, answer to survive', icon: '🐦', color: 'brand-indigo', questions: 10, minutes: 5, locked: true, href: '/play/session' },
+  { id: 'subway-surfer', name: 'Subway Surfer', desc: 'Run, dodge, and solve on the go', icon: '🏃', color: 'brand-terracotta', questions: 10, minutes: 5, locked: true, href: '/play/session' },
+  { id: 'geometry-dash', name: 'Geometry Dash', desc: 'Jump to the beat, think to compete', icon: '🔺', color: 'brand-success', questions: 10, minutes: 5, locked: true, href: '/play/session' },
 ]
 
 export const mockChild = {

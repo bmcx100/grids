@@ -17,125 +17,68 @@ export function SwapSection() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[900px] mx-auto">
         {/* Left: Garish ad mockup */}
+        <div className="flex flex-col">
         <motion.div
-          className="rounded-card overflow-hidden border-2 border-dashed border-red-300 relative"
+          className="rounded-card overflow-hidden border border-brand-cream-dark shadow-card flex flex-col flex-1"
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <div
-            className="p-5 flex flex-col gap-3"
-            style={{
-              background:
-                'linear-gradient(135deg, #ff6b00 0%, #ff00ff 40%, #00ff88 70%, #ffff00 100%)',
-            }}
-          >
-            <div className="bg-white/90 rounded-lg p-3 text-center">
-              <p className="text-xs text-gray-500 italic">
-                Your kid&rsquo;s &ldquo;free&rdquo; game
-              </p>
-            </div>
+          <div className="bg-brand-cream p-6 flex flex-col gap-4 flex-1">
 
             {/* Fake flashy banner */}
-            <div
-              className="rounded-lg p-3 text-center animate-pulse"
-              style={{
-                background:
-                  'linear-gradient(90deg, #ff0000, #ff6600, #ff0000)',
-                border: '3px dashed #ffff00',
-              }}
-            >
-              <p
-                className="font-bold text-sm"
-                style={{
-                  color: '#ffff00',
-                  textShadow: '2px 2px 0 #000',
-                  letterSpacing: '0.1em',
-                }}
-              >
+            <div className="rounded-chunky p-3 text-center border border-brand-cream-dark bg-white">
+              <p className="font-bold text-sm text-brand-pencil tracking-wide">
                 YOU WON A FREE iPHONE!!!
               </p>
             </div>
 
             {/* Fake download button */}
-            <div
-              className="rounded-lg p-4 text-center"
-              style={{
-                background:
-                  'linear-gradient(180deg, #44ff00 0%, #00cc00 100%)',
-                border: '3px solid #006600',
-                boxShadow: '0 4px 0 #004400',
-              }}
-            >
-              <p
-                className="font-extrabold text-lg"
-                style={{
-                  color: '#ffffff',
-                  textShadow: '2px 2px 0 #006600',
-                }}
-              >
+            <div className="rounded-chunky p-4 text-center bg-white border border-brand-cream-dark">
+              <p className="font-extrabold text-lg text-brand-ink">
                 DOWNLOAD NOW!!!
               </p>
-              <p
-                className="text-[10px] mt-1"
-                style={{ color: '#ffffffaa' }}
-              >
+              <p className="text-[10px] mt-1 text-brand-pencil">
                 *Totally not a virus
               </p>
             </div>
 
             {/* Fake "close" button that's hard to find */}
-            <div
-              className="rounded-lg p-2 flex items-center justify-between"
-              style={{ background: '#333' }}
-            >
-              <p className="text-[11px] text-gray-400">
+            <div className="rounded-chunky p-2 flex items-center justify-between bg-white border border-brand-cream-dark">
+              <p className="text-[11px] text-brand-pencil">
                 Ad &middot; Closes in 29s
               </p>
-              <span
-                className="text-[8px] text-gray-600"
-                style={{ opacity: 0.3 }}
-              >
+              <span className="text-[8px] text-brand-pencil/30">
                 x
               </span>
             </div>
 
             {/* Fake pop-up overlay */}
-            <div
-              className="rounded-lg p-3 text-center"
-              style={{
-                background: 'rgba(0,0,0,0.85)',
-                border: '2px solid #ff00ff',
-              }}
-            >
-              <p className="text-white text-xs font-bold">
+            <div className="rounded-chunky p-3 text-center bg-white border border-brand-cream-dark">
+              <p className="text-brand-ink text-xs font-bold">
                 Watch a 30-second ad to continue playing?
               </p>
               <div className="flex gap-2 justify-center mt-2">
-                <span
-                  className="px-4 py-1 rounded text-xs font-bold text-white"
-                  style={{ background: '#ff00ff' }}
-                >
+                <span className="px-4 py-1 rounded-chunky text-xs font-bold text-brand-ink bg-brand-cream border border-brand-cream-dark">
                   Watch Ad
                 </span>
-                <span
-                  className="px-4 py-1 rounded text-xs text-gray-500"
-                  style={{ background: '#333' }}
-                >
+                <span className="px-4 py-1 rounded-chunky text-xs text-brand-pencil bg-brand-cream border border-brand-cream-dark">
                   Pay $4.99
                 </span>
               </div>
             </div>
           </div>
-          <p className="text-center text-brand-pencil text-xs py-2 bg-white font-body">
-            Their &ldquo;free&rdquo; game, today
-          </p>
         </motion.div>
+        <p className="text-center text-brand-pencil text-xs pt-3 font-body">
+          Their &ldquo;free&rdquo; game, today
+        </p>
+        </div>
 
         {/* Right: Clean Joviko question */}
+        <div className="flex flex-col">
         <motion.div
-          className="rounded-card overflow-hidden border border-brand-cream-dark shadow-card"
+          className="rounded-card overflow-hidden border border-brand-cream-dark shadow-card flex flex-col flex-1"
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -153,17 +96,19 @@ export function SwapSection() {
                 </span>
               </div>
               <span className="font-mono text-xs text-brand-pencil">
-                Level 3
+                Addition &middot; Grade 1
               </span>
             </div>
 
+            {/* Instruction */}
+            <p className="font-body text-xs text-brand-pencil">
+              Answer these 3 questions to retry level 4!!!
+            </p>
+
             {/* Question */}
-            <div className="bg-white rounded-chunky p-5 border border-brand-cream-dark">
-              <p className="font-heading font-bold text-lg text-brand-ink mb-1">
+            <div className="bg-brand-indigo rounded-chunky p-5">
+              <p className="font-heading font-bold text-lg text-white">
                 What is 7 + 5?
-              </p>
-              <p className="font-body text-xs text-brand-pencil">
-                Addition &middot; Grade 1
               </p>
             </div>
 
@@ -208,18 +153,19 @@ export function SwapSection() {
               <div className="flex-1 h-2 rounded-full bg-brand-cream-dark overflow-hidden">
                 <div
                   className="h-full rounded-full bg-brand-indigo"
-                  style={{ width: '60%' }}
+                  style={{ width: '33%' }}
                 />
               </div>
               <span className="font-mono text-xs text-brand-pencil">
-                6/10
+                1/3
               </span>
             </div>
           </div>
-          <p className="text-center text-brand-pencil text-xs py-2 bg-brand-parchment font-body">
-            Their game on Joviko
-          </p>
         </motion.div>
+        <p className="text-center text-brand-pencil text-xs pt-3 font-body">
+          Their game on Joviko
+        </p>
+        </div>
       </div>
     </section>
   )

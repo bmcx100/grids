@@ -25,7 +25,7 @@ const steps = [
 
 export function ForYouBoth() {
   return (
-    <section className="py-20 lg:py-28 bg-white">
+    <section className="py-20 lg:py-28" style={{ backgroundColor: '#FDFCF9' }}>
       <div className="max-w-[1200px] mx-auto px-6">
         <motion.h2
           className="font-heading font-extrabold text-[32px] lg:text-[42px] text-center mb-14 text-brand-ink"

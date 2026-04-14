@@ -14,16 +14,19 @@ const stagger = (index: number) => ({
   },
 })
 
-const copy: Record<Variant, { headline: string; subtext: string }> = {
+const copy: Record<Variant, { headline: string[]; subtext: string[] }> = {
   B: {
-    headline: 'Buy back their focus. Stop selling their attention.',
-    subtext:
-      'Fun games for them. Transparent, guided learning for you both.',
+    headline: ['Buy back their focus.', 'Stop selling their attention.'],
+    subtext: [
+      'Fun games for them.',
+      'Transparent, guided learning for you both.',
+    ],
   },
   D: {
-    headline: 'Screen time you can be proud of.',
-    subtext:
+    headline: ['Screen time you can be proud of.'],
+    subtext: [
       "Their device doesn't have to be a vice. Buy back their focus with games they love and learning you can see.",
+    ],
   },
 }
 
@@ -53,18 +56,22 @@ export function Hero() {
         {/* Left column */}
         <div className="lg:w-[60%]">
           <motion.h1 {...stagger(0)} key={`headline-${variant}`}>
-            <span className="font-heading font-extrabold text-[32px] lg:text-[42px] leading-[1.08] tracking-[-0.02em] text-brand-ink block">
-              {headline}
-            </span>
+            {headline.map((line, i) => (
+              <span key={i} className="font-heading font-extrabold text-[32px] lg:text-[42px] leading-[1.08] tracking-[-0.02em] text-brand-ink block">
+                {line}
+              </span>
+            ))}
           </motion.h1>
 
-          <motion.p
+          <motion.div
             {...stagger(1)}
             key={`subtext-${variant}`}
             className="font-body text-brand-pencil text-base leading-relaxed max-w-[420px] mt-4"
           >
-            {subtext}
-          </motion.p>
+            {subtext.map((line, i) => (
+              <p key={i}>{line}</p>
+            ))}
+          </motion.div>
 
           <motion.div {...stagger(2)}>
             <a
@@ -83,7 +90,7 @@ export function Hero() {
             className="bg-brand-parchment-warm rounded-2xl flex items-center justify-center aspect-[4/3] w-full border border-brand-cream-dark"
           >
             <span className="font-body text-brand-pencil text-sm text-center px-6">
-              Mom on laptop, son on phone, L-sectional couch
+              Mom on laptop, son on phone, son leaning up against mother, both engaged and happy, L-sectional couch
             </span>
           </motion.div>
         </div>

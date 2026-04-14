@@ -21,7 +21,7 @@ export function getVariant(): Variant {
   if (existing === 'B' || existing === 'D') {
     return existing
   }
-  const variant: Variant = Math.random() < 0.5 ? 'B' : 'D'
+  const variant: Variant = Math.random() < 0.5 ? 'D' : 'B'
   setCookie(COOKIE_NAME, variant, MAX_AGE_DAYS)
   return variant
 }

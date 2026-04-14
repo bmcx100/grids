@@ -23,7 +23,7 @@ const features = [
 
 export function Customization() {
   return (
-    <section className="py-20 lg:py-28">
+    <section className="pt-8 lg:pt-12 pb-20 lg:pb-28">
       <motion.h2
         className="font-heading font-extrabold text-[32px] lg:text-[42px] text-center mb-14 text-brand-ink"
         initial={{ opacity: 0, y: 20 }}

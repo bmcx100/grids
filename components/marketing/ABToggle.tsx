@@ -24,9 +24,9 @@ export function ABToggle() {
       <span className="font-mono text-[11px] text-brand-ink/50 mr-1">Hero:</span>
       <div className="flex rounded-full overflow-hidden border border-brand-indigo/20">
         <button
-          onClick={() => handleSwitch('B')}
+          onClick={() => handleSwitch('D')}
           className={`px-3 py-1 text-[12px] font-mono font-semibold transition-colors ${
-            variant === 'B'
+            variant === 'D'
               ? 'bg-brand-indigo text-white'
               : 'bg-brand-cream text-brand-ink/60 hover:bg-brand-cream-dark'
           }`}
@@ -34,9 +34,9 @@ export function ABToggle() {
           Option A
         </button>
         <button
-          onClick={() => handleSwitch('D')}
+          onClick={() => handleSwitch('B')}
           className={`px-3 py-1 text-[12px] font-mono font-semibold transition-colors ${
-            variant === 'D'
+            variant === 'B'
               ? 'bg-brand-indigo text-white'
               : 'bg-brand-cream text-brand-ink/60 hover:bg-brand-cream-dark'
           }`}

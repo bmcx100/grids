@@ -74,7 +74,7 @@ export function PricingGrid() {
             >
               {tier.name}
             </p>
-            <p className="font-mono font-bold text-[36px]">{tier.price}</p>
+            <p className={cn('font-bold text-[36px]', tier.price === 'Custom' ? 'font-heading' : 'font-mono')}>{tier.price}</p>
             <p
               className={cn(
                 'text-[13px] mb-4',

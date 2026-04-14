@@ -5,7 +5,7 @@ import { mockGames } from '@/lib/mockData'
 
 export function GameShowcase() {
   return (
-    <section id="games" className="py-20 lg:py-28">
+    <section id="games" className="py-10 lg:py-14">
       <motion.h2
         className="font-heading font-extrabold text-[32px] lg:text-[42px] text-center mb-14 text-brand-ink"
         initial={{ opacity: 0, y: 20 }}

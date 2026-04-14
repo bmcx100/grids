@@ -25,7 +25,9 @@ export function Footer() {
               </span>
             </div>
             <p className="font-body text-sm text-brand-parchment/60 leading-relaxed max-w-[300px]">
-              Fun games for kids. Guided learning for parents.
+              Fun games for kids.
+              <br />
+              Guided learning for parents.
             </p>
           </div>
 

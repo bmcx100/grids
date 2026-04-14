@@ -12,9 +12,13 @@ export default function MarketingPage() {
     <>
       <div className="max-w-[1200px] mx-auto px-6">
         <Hero />
-        <TrustBar />
+      </div>
+      <TrustBar />
+      <div className="max-w-[1200px] mx-auto px-6">
         <SwapSection />
-        <ForYouBoth />
+      </div>
+      <ForYouBoth />
+      <div className="max-w-[1200px] mx-auto px-6">
         <GameShowcase />
         <Customization />
       </div>
