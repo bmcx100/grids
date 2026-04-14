@@ -17,7 +17,7 @@ export function Hero() {
     <section className="py-20 lg:py-28">
       <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-12">
         {/* Left column */}
-        <div className="lg:w-[60%]">
+        <div className="lg:w-[50%]">
           <motion.h1 {...stagger(0)}>
             <span className="font-heading font-extrabold text-[32px] lg:text-[42px] leading-[1.08] tracking-[-0.02em] text-brand-ink block">
               Screen time a parent
@@ -46,7 +46,7 @@ export function Hero() {
         </div>
 
         {/* Right column */}
-        <div className="lg:w-[40%]">
+        <div className="lg:w-[50%]">
           <motion.div {...stagger(3)}>
             <img
               src="/images/homepage-design/hero-mother-son.png"
